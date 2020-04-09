@@ -7,7 +7,7 @@ import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.handler.TextWebSocketHandler
 import java.util.concurrent.CopyOnWriteArrayList
 
-class SocketHandler: TextWebSocketHandler() {
+class SocketHandler : TextWebSocketHandler() {
 
     companion object {
         val LOG: Logger = LoggerFactory.getLogger(SocketHandler::class.java)
