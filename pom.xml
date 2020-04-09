@@ -11,7 +11,7 @@
 	<groupId>com.communicator</groupId>
 	<artifactId>the</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>the</name>
+	<name>the-communicator</name>
 	<description>The communicator</description>
 
 	<properties>
