@@ -54,10 +54,19 @@ function initialize() {
     peerConnection.addEventListener("connectionstatechange", (event) => {
         console.log("Connection state changed ", event);
         console.log("State: ", peerConnection.connectionState);
-    })
+    });
+
+    peerConnection.addEventListener('negotiationneeded', (event) => {
+        console.log("Negotiation needed event", event);
+    });
+
+    createDataChannel();
 
     listenForPeerConnectionTrackEvent();
 
+}
+
+function createDataChannel(){
     // creating data channel
     dataChannel = peerConnection.createDataChannel("dataChannel", {
         reliable : true
@@ -75,7 +84,9 @@ function initialize() {
     dataChannel.onclose = function() {
         console.log("data channel is closed");
     };
+
 }
+
 
 async function createOffer() {
     try {
@@ -165,4 +176,15 @@ function listenForPeerConnectionTrackEvent(){
     };
 
     console.log("Track event listener set up!")
+}
+
+async function connect() {
+
+    const videoAndAudioCheckbox = document.querySelector('#videoAndAudioCheckbox');
+    if(videoAndAudioCheckbox.checked === true){
+      await addVideo();
+    }
+
+    createOffer();
+
 }

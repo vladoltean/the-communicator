@@ -8,16 +8,18 @@
 
 <body>
 
-<button type="button" class="btn btn-primary" onclick='createOffer()'>Create
-    Offer</button>
-<input id="messageInput" type="text" class="form-control"
-       placeholder="message">
-<button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
-<button type="button" class="btn btn-primary" onclick='addVideo()'>Add Video and Audio</button>
 
 
-VIDEO:
+
+<input id="videoAndAudioCheckbox" type="checkbox">Add Video and Audio</input>
+<br>
+<button type="button" class="btn btn-primary" onclick='connect()'>Connect</button>
+
+<br>
 <video id="remoteVideo" autoplay playsinline></video>
+<br>
+<input id="messageInput" type="text" class="form-control" placeholder="message"><button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
+
 
 <script src="js/main.js"></script>
 
