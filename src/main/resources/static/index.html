@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>The Communicatior</title>
-
-    <script src="js/main.js"></script>
 </head>
 
 
 <body>
-The communicator
+
+<button type="button" class="btn btn-primary" onclick='createOffer()'>Create
+    Offer</button>
+<input id="messageInput" type="text" class="form-control"
+       placeholder="message">
+<button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
+<button type="button" class="btn btn-primary" onclick='addVideo()'>Add Video and Audio</button>
+
+
+VIDEO:
+<video id="remoteVideo" autoplay playsinline></video>
+
+<script src="js/main.js"></script>
+
+
 </body>
 </html>
