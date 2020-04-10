@@ -29,3 +29,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+!.idea/
+.idea/*
+!.idea/runConfigurations
+
+password.tmp

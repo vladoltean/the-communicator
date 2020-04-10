@@ -1,0 +1,16 @@
+
+https://codelabs.developers.google.com/codelabs/cloud-springboot-kubernetes/index.html?index=..%2F..index#7
+
+gcloud services enable compute.googleapis.com container.googleapis.com
+
+gcloud container clusters create the-communicator-cluster \
+  --num-nodes 1 \
+  --machine-type n1-standard-1 \
+  --zone europe-west3-a
+
+
+kubectl create deployment the-communicator \
+  --image=eu.gcr.io/the-communicator/the-communicator:latest
+
+  Expose to world:
+  kubectl create service loadbalancer the-communicator --tcp=8080:8080
