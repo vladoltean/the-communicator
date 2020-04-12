@@ -1,4 +1,4 @@
-var signalingConnection = new WebSocket('ws://localhost:8080/socket');
+var signalingConnection = new WebSocket('wss://the-communicator.herokuapp.com/socket');
 var peerConnection;
 var dataChannel;
 var input = document.getElementById("messageInput");
