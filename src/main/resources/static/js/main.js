@@ -1,4 +1,5 @@
 var signalingConnection = new WebSocket('wss://the-communicator.herokuapp.com/socket');
+//var signalingConnection = new WebSocket('ws://localhost:8080/socket');
 var peerConnection;
 var dataChannel;
 var input = document.getElementById("messageInput");
@@ -164,15 +165,24 @@ async function addVideo() {
 }
 
 function listenForPeerConnectionTrackEvent(){
+    const remoteVideo = document.querySelector('#remoteVideo');
+    let remoteStream = null;
+
 
     peerConnection.ontrack = (event) => {
         console.log("Track event: ", event);
 
-        let remoteStream = new MediaStream();
+        if(remoteStream === null) {
+            remoteStream = new MediaStream();
+        }
+
         remoteStream.addTrack(event.track, remoteStream);
 
-        const remoteVideo = document.querySelector('#remoteVideo');
-        remoteVideo.srcObject = remoteStream;
+        if(remoteVideo.srcObject === null) {
+            remoteVideo.srcObject = remoteStream;
+        }
+
+
     };
 
     console.log("Track event listener set up!")
