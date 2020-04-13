@@ -1,59 +1,54 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from "react";
+import ReactDOM from "react-dom";
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link
+} from "react-router-dom";
+
+import { MainPage } from './components/MainPage.jsx'
 
 class App extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {users: []};
-	}
-
-	// TODO: Try to use async/await
-	componentDidMount() {
-		fetch("/api/web-socket/users")
-			.then(data => data.json())
-			.then(users => {
-				console.log("users", users);
-				this.setState({users: users});
-			})
-	}
-
 	render() {
 		return (
-			<UsersList users={this.state.users}/>
+
+			<Router>
+				<div>
+					{/*
+				A <Switch> looks through all its children <Route>
+				elements and renders the first one whose path
+				matches the current URL. Use a <Switch> any time
+				you have multiple routes, but you want only one
+				of them to render at a time
+				*/}
+					<Switch>
+						<Route exact path="/">
+							<MainPage />
+						</Route>
+						<Route path="/about">
+							<About />
+						</Route>
+
+					</Switch>
+				</div>
+
+			</Router>
 		)
 	}
 }
 
-class UsersList extends React.Component {
-	render() {
-		console.log('props', this.props);
-		const users = this.props.users.map(user => <User user={user}/>)
+let About = (props) => (
+	<div>
+		<h1>ABOUT PAGE</h1>
+		<h2>bla bla bla</h2>
+	</div>
+)
 
-		return (
-			<table>
-				<thead>
-					<tr>
-						<th>ID</th>
-					</tr>
-				</thead>
-				<tbody>
-					{users}
-				</tbody>
-			</table>
-		)
-	}
-}
 
-class User extends React.Component {
-	render(){
-		return (
-			<tr>
-				<td>{this.props.user.id}</td>
-			</tr>
-		)
-	}
-}
+
+
 
 ReactDOM.render(
 	<App />,
