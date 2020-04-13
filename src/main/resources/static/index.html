@@ -8,17 +8,36 @@
 
 <body>
 
+<input id="whoami" type="text" placeholder="Who are you?" minlength="5"/>
+<br><input id="recipientInput" type="text" placeholder="Who do you want to talk to? (see users list)">
+<button type="button" onclick="setWhoami()">Set</button>
+
+<br><br>
+
 <input id="videoAndAudioCheckbox" type="checkbox">Add Video and Audio</input>
+
 <br>
 <button type="button" class="btn btn-primary" onclick='connect()'>Connect</button>
 
+<hr>
+<br>
+VIDEO SHOULD BE HERE after connection:
 <br>
 <video id="remoteVideo" autoplay playsinline></video>
 <br>
 <input id="messageInput" type="text" class="form-control" placeholder="message"><button type="button" class="btn btn-primary" onclick='sendMessage()'>SEND</button>
 
 
+
+<br><br>
+<hr>
+<button type="button" onclick="fetchUsers()">Refresh users</button>
+<div id="users-wrapper"></div>
+
+
 <script src="js/main.js"></script>
+<script src="js/users.js"></script>
+
 
 <br>
 <br>

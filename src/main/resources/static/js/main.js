@@ -1,35 +1,24 @@
-var signalingConnection = new WebSocket('wss://the-communicator.herokuapp.com/socket');
-//var signalingConnection = new WebSocket('ws://localhost:8080/socket');
+var signalingConnection = null;
 var peerConnection;
 var dataChannel;
 var input = document.getElementById("messageInput");
+var whoamiInput = document.querySelector("#whoami");
+var recipientInput = document.querySelector('#recipientInput');
 
-signalingConnection.onopen = () => {
-    console.log("Connected to signaling server!")
-    initialize();
+var whoami = null;
+var recipientId = null;
+
+class SignalServerMessage {
+    constructor(event, data, senderId, recipientId) {
+        this.event = event;
+        this.data = data;
+        this.senderId = senderId;
+        this.recipientId = recipientId;
+    }
 }
 
 
-signalingConnection.onmessage = function(msg) {
-    console.log("[WS-via signaling server] Got message", msg.data);
-    var content = JSON.parse(msg.data);
-    var data = content.data;
-    switch (content.event) {
-    // when somebody wants to call us
-    case "offer":
-        handleOffer(data);
-        break;
-    case "answer":
-        handleAnswer(data);
-        break;
-    // when a remote peer sends an ice candidate to us
-    case "candidate":
-        handleCandidate(data);
-        break;
-    default:
-        break;
-    }
-};
+
 
 
 function initialize() {
@@ -142,6 +131,10 @@ function sendMessageToSignalingServer() {
 }
 
 function sendMessageToSignalingServer(message) {
+
+    if(whoami) message.senderId=whoami;
+    if(recipientId) message.recipientId=recipientId;
+
     console.log("Sending message to signaling server ", message);
     signalingConnection.send(JSON.stringify(message));
 }
@@ -189,8 +182,9 @@ function listenForPeerConnectionTrackEvent(){
 }
 
 async function connect() {
-
     const videoAndAudioCheckbox = document.querySelector('#videoAndAudioCheckbox');
+    recipientId = recipientInput.value;
+
     if(videoAndAudioCheckbox.checked === true){
       await addVideo();
     }
@@ -198,3 +192,48 @@ async function connect() {
     createOffer();
 
 }
+
+
+function setWhoami(){
+    whoami = whoamiInput.value;
+    recipientId = recipientInput.value;
+//    signalingConnection = new WebSocket('ws://localhost:8080/socket');
+    signalingConnection = new WebSocket('wss://the-communicator.herokuapp.com/socket');
+
+    setupWebSocket();
+}
+
+
+
+function setupWebSocket(){
+    signalingConnection.onopen = () => {
+        console.log("Connected to signaling server!")
+        /// whoami
+        msg = new SignalServerMessage("identify", "", whoami, "");
+        sendMessageToSignalingServer(msg)
+        initialize();
+    }
+
+
+    signalingConnection.onmessage = function(msg) {
+        console.log("[WS-via signaling server] Got message", msg.data);
+        var content = JSON.parse(msg.data);
+        var data = content.data;
+        switch (content.event) {
+        // when somebody wants to call us
+        case "offer":
+            handleOffer(data);
+            break;
+        case "answer":
+            handleAnswer(data);
+            break;
+        // when a remote peer sends an ice candidate to us
+        case "candidate":
+            handleCandidate(data);
+            break;
+        default:
+            break;
+        }
+    };
+}
+
