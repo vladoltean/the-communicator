@@ -1,4 +1,3 @@
-//var signalingConnection = new WebSocket('wss://the-communicator.herokuapp.com/socket');
 var signalingConnection = null;
 var peerConnection;
 var dataChannel;
@@ -198,7 +197,9 @@ async function connect() {
 function setWhoami(){
     whoami = whoamiInput.value;
     recipientId = recipientInput.value;
-    signalingConnection = new WebSocket('ws://localhost:8080/socket');
+//    signalingConnection = new WebSocket('ws://localhost:8080/socket');
+    signalingConnection = new WebSocket('wss://the-communicator.herokuapp.com/socket');
+
     setupWebSocket();
 }
 

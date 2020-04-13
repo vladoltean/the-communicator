@@ -25,9 +25,4 @@ object JacksonConverter {
         return OBJECT_MAPPER.writeValueAsString(input)
     }
 
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val message = toObject("{\"event\":\"candidate\",\"data\":{\"candidate\":\"candidate:3926511315 1 udp 2122260223 192.168.0.38 52591 typ host generation 0 ufrag JNCK network-id 1 network-cost 10\",\"sdpMid\":\"2\",\"sdpMLineIndex\":2}}", WebSocketMessage::class.java)
-        println(message);
-    }
 }

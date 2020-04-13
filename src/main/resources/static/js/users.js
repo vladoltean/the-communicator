@@ -2,7 +2,8 @@ const wrapper = document.querySelector("#users-wrapper");
 
 
 function fetchUsers() {
-  fetch("http://localhost:8080/web-socket/users")
+//  fetch("http://localhost:8080/web-socket/users")
+  fetch("https://the-communicator.herokuapp.com/web-socket/users")
       .then(data => data.json())
       .then(jsonData => populate(jsonData))
       .catch(e => {

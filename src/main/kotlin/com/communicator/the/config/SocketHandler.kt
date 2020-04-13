@@ -3,6 +3,7 @@ package com.communicator.the.config
 import com.communicator.the.data.UserWebSocketSession
 import com.communicator.the.data.WebSocketConnectionsStore
 import com.communicator.the.data.WebSocketMessage
+import com.communicator.the.exception.UserWebSocketSessionNotFoundException
 import com.communicator.the.util.JacksonConverter
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -42,22 +43,13 @@ class SocketHandler(webSocketConnectionsStore: WebSocketConnectionsStore) : Text
             return;
         }
 
-        //TODO: Check for null
-        val recipientSession: WebSocketSession = sessionsMap[recipientSessionId]!!;
+        val recipientSession: WebSocketSession = sessionsMap.get(recipientSessionId)
+                ?: throw UserWebSocketSessionNotFoundException("Session not found for recipient session id: $recipientSessionId")
 
         if (recipientSession.isOpen) {
             LOG.info("Sending message to ${recipientSession.id}: \n Message: ${message.payload}")
             recipientSession.sendMessage(message)
         }
-
-
-//        for (webSocketSession in sessionsMap.values) {
-//            if (webSocketSession.isOpen && session.id != webSocketSession.id) {
-//
-//                LOG.info("Sending message to ${session.id}: \n Message: ${message.payload}")
-//                webSocketSession.sendMessage(message)
-//            }
-//        }
     }
 
     override fun afterConnectionEstablished(session: WebSocketSession) {
