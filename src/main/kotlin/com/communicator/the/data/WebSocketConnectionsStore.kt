@@ -3,11 +3,22 @@ package com.communicator.the.data
 import com.communicator.the.exception.UserWebSocketSessionNotFoundException
 import org.springframework.stereotype.Component
 
+//TODO: Remove me
+fun tempInit(): MutableMap<String, UserWebSocketSession> {
+    val map = HashMap<String, UserWebSocketSession>();
+    map.put("dummy-1", UserWebSocketSession("dummy-1", "dummy-1"))
+    map.put("dummy-2", UserWebSocketSession("dummy-2", "dummy-2"))
+    map.put("dummy-3", UserWebSocketSession("dummy-3", "dummy-3"))
+
+    return map;
+}
+
+
 @Component
 class WebSocketConnectionsStore {
 
-    private val storeBySessionId: MutableMap<String, UserWebSocketSession> = HashMap();
-    private val storeByUserId: MutableMap<String, UserWebSocketSession> = HashMap();
+    private val storeBySessionId: MutableMap<String, UserWebSocketSession> = tempInit()
+    private val storeByUserId: MutableMap<String, UserWebSocketSession> = tempInit()
 
     fun add(userWSSession: UserWebSocketSession) {
         storeBySessionId.put(userWSSession.sessionId, userWSSession);

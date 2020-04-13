@@ -35,3 +35,4 @@ build/
 !.idea/runConfigurations
 
 password.tmp
+node_modules
