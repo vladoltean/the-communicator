@@ -1,4 +1,4 @@
-package com.communicator.the.data
+package com.communicator.the.model
 
 class WebSocketMessage (
         val event: String,
