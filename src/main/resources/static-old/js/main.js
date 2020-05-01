@@ -20,7 +20,7 @@ class SignalServerMessage {
 
 
 
-
+// copied to webrtc
 function initialize() {
     const configuration = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]};
 
@@ -56,6 +56,7 @@ function initialize() {
 
 }
 
+// copied to webrtc
 function createDataChannel(){
     // creating data channel
     dataChannel = peerConnection.createDataChannel("dataChannel", {
@@ -77,7 +78,7 @@ function createDataChannel(){
 
 }
 
-
+// copied to webrtc
 async function createOffer() {
     try {
         let offer = await peerConnection.createOffer();
@@ -92,7 +93,7 @@ async function createOffer() {
     }
 }
 
-
+// copied to webrtc
 function handleOffer(offer) {
     console.log("Handling offer:", offer);
     peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
@@ -111,25 +112,30 @@ function handleOffer(offer) {
 
 };
 
+// copied to webrtc
 function handleCandidate(candidate) {
     console.log("Handling candidate:", candidate);
     peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
 };
 
+// copied to webrtc
 function handleAnswer(answer) {
     console.log("Handling answer:", answer);
     peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
 };
 
+// copied to webrtc
 function sendMessage() {
     dataChannel.send(input.value);
     input.value = "";
 }
 
+// copied to WebSocket
 function sendMessageToSignalingServer() {
     signalingConnection.send(JSON.stringify(input.value));
 }
 
+// copied to WebSocket
 function sendMessageToSignalingServer(message) {
 
     if(whoami) message.senderId=whoami;
@@ -139,7 +145,7 @@ function sendMessageToSignalingServer(message) {
     signalingConnection.send(JSON.stringify(message));
 }
 
-
+// copied to webrtc
 async function addVideo() {
     try {
          let constraints = {video: true, audio: true};
@@ -157,6 +163,7 @@ async function addVideo() {
 
 }
 
+// copied to webrtc
 function listenForPeerConnectionTrackEvent(){
     const remoteVideo = document.querySelector('#remoteVideo');
     let remoteStream = null;
@@ -181,6 +188,7 @@ function listenForPeerConnectionTrackEvent(){
     console.log("Track event listener set up!")
 }
 
+// copied to webrtc
 async function connect() {
     const videoAndAudioCheckbox = document.querySelector('#videoAndAudioCheckbox');
     recipientId = recipientInput.value;
@@ -190,21 +198,19 @@ async function connect() {
     }
 
     createOffer();
-
 }
 
-
+// not copied
 function setWhoami(){
     whoami = whoamiInput.value;
     recipientId = recipientInput.value;
 //    signalingConnection = new WebSocket('ws://localhost:8080/socket');
     signalingConnection = new WebSocket('wss://the-communicator.herokuapp.com/socket');
-
     setupWebSocket();
 }
 
 
-
+// copied to websocket
 function setupWebSocket(){
     signalingConnection.onopen = () => {
         console.log("Connected to signaling server!")
