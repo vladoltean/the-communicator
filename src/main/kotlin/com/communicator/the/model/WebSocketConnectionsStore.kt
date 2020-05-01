@@ -1,4 +1,4 @@
-package com.communicator.the.data
+package com.communicator.the.model
 
 import com.communicator.the.exception.UserWebSocketSessionNotFoundException
 import org.springframework.stereotype.Component
@@ -16,6 +16,10 @@ fun tempInit(): MutableMap<String, UserWebSocketSession> {
 
 @Component
 class WebSocketConnectionsStore {
+
+    /**
+     * The users in this maps are the "online" users.
+     */
 
     private val storeBySessionId: MutableMap<String, UserWebSocketSession> = tempInit()
     private val storeByUserId: MutableMap<String, UserWebSocketSession> = tempInit()

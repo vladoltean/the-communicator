@@ -1,6 +1,6 @@
 package com.communicator.the.config
 
-import com.communicator.the.data.WebSocketConnectionsStore
+import com.communicator.the.model.WebSocketConnectionsStore
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.config.annotation.EnableWebSocket

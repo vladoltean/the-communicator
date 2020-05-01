@@ -1,11 +1,9 @@
 package com.communicator.the.util
 
-import com.communicator.the.data.WebSocketMessage
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 object JacksonConverter {
 
